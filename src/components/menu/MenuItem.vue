@@ -53,9 +53,10 @@ export default {
         return `${this.cachedItems.count} x ${this.data.name}`;
       }
 
-      return this.count
-        ? `${this.count} x ${this.data.name}`
-        : this.data.name
+      this.count = 0;
+      this.isSelectedItem = false;
+
+      return this.data.name
     }
   },
   methods: {
