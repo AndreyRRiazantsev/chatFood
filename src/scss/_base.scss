@@ -1,0 +1,21 @@
+body {
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+
+  & p {
+    margin: 0px;
+  }
+}
+
+.spasing {
+  padding-left: 21px;
+  padding-right: 21px;
+}
+
+.selected-item {
+  border-left-style: solid;
+  border-left-width: 7px;
+  border-left-color: #1258FF;
+  padding-left: calc(14px);
+}
