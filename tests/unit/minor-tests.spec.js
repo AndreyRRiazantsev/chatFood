@@ -4,13 +4,13 @@ import { filteredMenuData } from '../utils/index';
 
 describe('Data formats', () => {
   it('get formatted data by categories', () => {
-    const categoryObjectById = mockData.categories.find(el => el.id === '1');
+    const categoryObjectById = mockData.categories.find((el) => el.id === '1');
 
-    categoryObjectById.items = mockData.items.filter(el => el.category_id === categoryObjectById.id);
+    categoryObjectById.items = mockData.items.filter((el) => el.category_id === categoryObjectById.id);
 
     const formattedMenuData = {
-      ...categoryObjectById
-    }
+      ...categoryObjectById,
+    };
 
     const expectedResult = {
       id: '1',
@@ -28,7 +28,7 @@ describe('Data formats', () => {
           },
           description: 'Delicious Avo Chicken Burger with Swiss Cheese.',
           photo: null,
-          category_id: '1'
+          category_id: '1',
         },
         {
           id: '2',
@@ -41,7 +41,7 @@ describe('Data formats', () => {
           },
           description: 'Very nice cheese burger.',
           photo: 'https://chatfood-cdn.s3.eu-central-1.amazonaws.com/fe-code-challenge-1/cheese-burger.jpg',
-          category_id: '1'
+          category_id: '1',
         },
         {
           id: '1',
@@ -52,17 +52,17 @@ describe('Data formats', () => {
           stock: {
             availability: 100,
           },
-          description: 'Grilled chicken, avocado, tomato, iceberg lettuce and mayonnaise',       
+          description: 'Grilled chicken, avocado, tomato, iceberg lettuce and mayonnaise',
           photo: 'https://chatfood-cdn.s3.eu-central-1.amazonaws.com/fe-code-challenge-1/chicken-avocado.jpg',
-          category_id: '1'
-        }
-      ]
-    }
+          category_id: '1',
+        },
+      ],
+    };
 
     expect(formattedMenuData).toEqual(expectedResult);
   });
 
-  it('filter data by existing text', () => {  
+  it('filter data by existing text', () => {
     const expectedResult = {
       id: '1',
       items: [
@@ -75,21 +75,21 @@ describe('Data formats', () => {
           photo: null,
           price: 4300,
           stock: {
-            availability: 8
+            availability: 8,
           },
-          url: 'avo-burger'
-        }
+          url: 'avo-burger',
+        },
       ],
       name: 'Burgers',
-      url: 'burgers'
+      url: 'burgers',
     };
 
-    expect(filteredMenuData('avo burger')[0]).toEqual(expectedResult)
+    expect(filteredMenuData('avo burger')[0]).toEqual(expectedResult);
   });
 
   it('handle empty result', () => {
     const expectedResult = [];
 
     expect(filteredMenuData('nothing')[0]).toEqual(expectedResult);
-  })
+  });
 });

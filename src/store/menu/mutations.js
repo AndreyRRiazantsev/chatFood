@@ -3,24 +3,24 @@ import helpers from '../../helpers/index';
 export const mutations = {
   SET_MENU_LIST(state, payload) {
     state.menu = payload.categories.map((el) => {
-      let sortedList = payload.items.sort(helpers.compareMenuRecords);
+      const sortedList = payload.items.sort(helpers.compareMenuRecords);
       el.items = sortedList.filter((item) => item.category_id === el.id);
 
       return el;
-    })
+    });
 
     state.menu = state.menu.sort(helpers.compareMenuRecords);
   },
   SAVE_TO_LOCALSTORAGE(state, payload) {
     const params = {
       [`${payload.parentId}-${payload.record.recordId}`]: {
-        ...payload.record 
-      }
-    }
+        ...payload.record,
+      },
+    };
 
     state.selectedItems = {
       ...state.selectedItems,
-      ...params
+      ...params,
     };
 
     localStorage.setItem('selectedItems', JSON.stringify(state.selectedItems));
@@ -32,12 +32,11 @@ export const mutations = {
     try {
       localStorage.removeItem('selectedItems');
       state.selectedItems = {};
-    } catch(e) {
+    } catch (e) {
       console.error('Error while clear storage');
-      return;
     }
   },
   SET_SEARCH_QUERY(state, message) {
     state.searchQuery = message;
-  }
-}
+  },
+};

@@ -14,15 +14,16 @@
 import { mapMutations } from 'vuex';
 import InputSearch from '@/components/InputSearch';
 import MenuList from '../components/menu/MenuList';
+
 export default {
   components: {
     InputSearch,
-    MenuList
+    MenuList,
   },
   methods: {
-    ...mapMutations('menu', ['CLEAR_STORAGE'])
-  }
-}
+    ...mapMutations('menu', ['CLEAR_STORAGE']),
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@ export const actions = {
       commit('SET_MENU_LIST', res.data);
 
       return res.data;
-    }).catch(err => err);
+    }).catch((err) => err);
     return result;
   },
-}
+};

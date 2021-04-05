@@ -56,7 +56,7 @@ export default {
       this.count = 0;
       this.isSelectedItem = false;
 
-      return this.data.name
+      return this.data.name;
     },
     getMenuItemPrice() {
       if (this.data.discount_rate) {
@@ -64,7 +64,7 @@ export default {
       }
 
       return this.data.price;
-    }
+    },
   },
   methods: {
     ...mapMutations('menu', ['SAVE_TO_LOCALSTORAGE']),
@@ -77,15 +77,15 @@ export default {
       this.count++;
       this.isSelectedItem = true;
 
-      this.$store.commit('menu/SAVE_TO_LOCALSTORAGE',{
+      this.$store.commit('menu/SAVE_TO_LOCALSTORAGE', {
         parentId: this.parentId,
         record: {
           recordId: this.data.id,
-          count: this.count
-        }
+          count: this.count,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -10,13 +10,13 @@ function createInstance(url) {
     baseUrl: url,
     headers: {
       'Content-Type': 'application/json',
-    }
-  })
+    },
+  });
 }
 
 export default {
   install() {
     Vue.prototype.$axios = devInstance;
     store.$axios = devInstance;
-  }
-}
+  },
+};

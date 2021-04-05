@@ -21,7 +21,7 @@ export default {
   }),
   methods: {
     ...mapMutations('menu', ['SET_SEARCH_QUERY']),
-  }
+  },
 };
 </script>
 

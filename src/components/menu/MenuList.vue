@@ -26,10 +26,10 @@ export default {
     MenuItem,
   },
   async mounted() {
-    await this.loadMenu()
+    await this.loadMenu();
   },
   computed: {
-    ...mapGetters('menu', ['getMenu',]),
+    ...mapGetters('menu', ['getMenu']),
     ...mapState('menu', ['selectedItems', 'searchQuery']),
 
     getMenuList() {
@@ -37,21 +37,21 @@ export default {
         return this.getMenu;
       }
 
-      const data = [ ...this.getMenu ];
+      const data = [...this.getMenu];
 
-      return data.map(el => { 
-        const filteredItems = el.items.filter(item => item.name.toLowerCase().includes(this.searchQuery));
+      return data.map((el) => {
+        const filteredItems = el.items.filter((item) => item.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
 
         if (filteredItems.length) {
           return {
             ...el,
-            items: filteredItems
-          }
+            items: filteredItems,
+          };
         }
 
         return [];
       });
-    }
+    },
   },
   methods: {
     ...mapActions('menu', ['loadMenu']),
