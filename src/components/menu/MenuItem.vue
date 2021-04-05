@@ -10,7 +10,14 @@
           {{ getMenuTitle }}
         </p>
         <p class="menu-item-description">{{ data.description }}</p>
-        <p>AED {{ data.price }}</p>
+        <div class="menu-item-price">
+          <span>
+            AED {{ getMenuItemPrice }}
+          </span>
+          <span v-if="data.discount_rate" class="past-price">
+            {{ data.price }}
+          </span>
+        </div>
       </div>
       <img
         v-if="data.photo"
@@ -27,16 +34,9 @@ import { mapMutations } from 'vuex';
 
 export default {
   name: 'menu-item',
-  // props: ['data', 'parentId', 'cachedItems'],
   props: {
-    data: {
-      type: Object,
-      default: {},
-    },
-    parentId: {
-      type: String,
-      default: 0,
-    },
+    data: Object,
+    parentId: String,
     cachedItems: Object,
   },
   data: () => ({
@@ -57,12 +57,23 @@ export default {
       this.isSelectedItem = false;
 
       return this.data.name
+    },
+    getMenuItemPrice() {
+      if (this.data.discount_rate) {
+        return (this.data.discount_rate * this.data.price).toFixed(0);
+      }
+
+      return this.data.price;
     }
   },
   methods: {
     ...mapMutations('menu', ['SAVE_TO_LOCALSTORAGE']),
 
     addToCard() {
+      if (this.count >= this.data.stock.availability) {
+        return;
+      }
+
       this.count++;
       this.isSelectedItem = true;
 
@@ -99,6 +110,24 @@ export default {
     line-height: 150%;
     color: #838DA6;
     margin: 7px 0;
+  }
+
+  & .menu-item-price {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    color: #071C4D;
+
+    & .past-price {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 150%;
+      text-decoration-line: line-through;
+      color: #838DA6;
+      margin-left: 10px;
+    }
   }
 }
 .dish_img {

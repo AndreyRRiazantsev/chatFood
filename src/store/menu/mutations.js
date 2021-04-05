@@ -1,15 +1,15 @@
-// import Vue from 'vue';
+import helpers from '../../helpers/index';
 
 export const mutations = {
   SET_MENU_LIST(state, payload) {
     state.menu = payload.categories.map((el) => {
-      payload.items = payload.items.sort(compareMenuRecords);
-      el.items = payload.items.filter((item) => item.category_id === el.id);
+      let sortedList = payload.items.sort(helpers.compareMenuRecords);
+      el.items = sortedList.filter((item) => item.category_id === el.id);
 
       return el;
     })
 
-    state.menu = state.menu.sort(compareMenuRecords);
+    state.menu = state.menu.sort(helpers.compareMenuRecords);
   },
   SAVE_TO_LOCALSTORAGE(state, payload) {
     const params = {
@@ -28,22 +28,16 @@ export const mutations = {
   INITIALIZE_STORAGE(state, payload) {
     state.selectedItems = JSON.parse(payload);
   },
-  RESTORE_STORAGE(state) {
-    localStorage.removeItem('selectedItems');
-    state.selectedItems = {};
+  CLEAR_STORAGE(state) {
+    try {
+      localStorage.removeItem('selectedItems');
+      state.selectedItems = {};
+    } catch(e) {
+      console.error('Error while clear storage');
+      return;
+    }
+  },
+  SET_SEARCH_QUERY(state, message) {
+    state.searchQuery = message;
   }
-}
-
-function compareMenuRecords(a, b) {
-  const nameA = a.name.toUpperCase();
-  const nameB = b.name.toUpperCase();
-  let comparison = 0;
-
-  if (nameA > nameB) {
-    comparison = 1;
-  } else if (nameA < nameB) {
-    comparison = -1;
-  }
-
-  return comparison;
 }

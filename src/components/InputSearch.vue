@@ -6,16 +6,22 @@
       type="text"
       class="input-search"
       placeholder="Search for dishes..."
+      @input="() => SET_SEARCH_QUERY(message)"
     />
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'input-search',
   data: () => ({
     message: '',
   }),
+  methods: {
+    ...mapMutations('menu', ['SET_SEARCH_QUERY']),
+  }
 };
 </script>
 

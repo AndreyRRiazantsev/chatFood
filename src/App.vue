@@ -10,6 +10,11 @@ export default {
   components: {
     MenuLayout,
   },
+  created() {
+    if (localStorage.getItem('selectedItems')) {
+      this.$store.commit('menu/INITIALIZE_STORAGE', localStorage.getItem('selectedItems'));
+    }
+  }
 };
 </script>
 

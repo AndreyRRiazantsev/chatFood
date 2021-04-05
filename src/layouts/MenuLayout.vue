@@ -3,7 +3,7 @@
     <img
       src="@/assets/Group.svg"
       class="spasing"
-      @click="() => RESTORE_STORAGE()"
+      @click="() => CLEAR_STORAGE()"
     />
     <input-search/>
     <menu-list/>
@@ -19,13 +19,8 @@ export default {
     InputSearch,
     MenuList
   },
-  mounted() {
-    if (localStorage.getItem('selectedItems')) {
-      this.$store.commit('menu/INITIALIZE_STORAGE', localStorage.getItem('selectedItems'));
-    }
-  },
   methods: {
-    ...mapMutations('menu', ['RESTORE_STORAGE'])
+    ...mapMutations('menu', ['CLEAR_STORAGE'])
   }
 }
 </script>

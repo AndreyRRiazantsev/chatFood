@@ -1,7 +1,7 @@
 <template>
   <div v-if="getMenu" class="menu-list">
     <div
-      v-for="(item, index) in getMenu"
+      v-for="(item, index) in getMenuList"
       :key="index"
     >
       <p class="category-title spasing">{{ item.name }}</p>
@@ -10,14 +10,14 @@
         :key="record.id"
         :data="record"
         :parent-id="item.id"
-        :cached-items="getSelectedItems[`${item.id}-${record.id}`]"
+        :cached-items="selectedItems[`${item.id}-${record.id}`]"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import MenuItem from './MenuItem';
 
 export default {
@@ -29,11 +29,33 @@ export default {
     await this.loadMenu()
   },
   computed: {
-    ...mapGetters('menu', ['getMenu', 'getSelectedItems']),
+    ...mapGetters('menu', ['getMenu',]),
+    ...mapState('menu', ['selectedItems', 'searchQuery']),
+
+    getMenuList() {
+      if (!this.searchQuery) {
+        return this.getMenu;
+      }
+
+      const data = [ ...this.getMenu ];
+
+      return data.map(el => { 
+        const filteredItems = el.items.filter(item => item.name.toLowerCase().includes(this.searchQuery));
+
+        if (filteredItems.length) {
+          return {
+            ...el,
+            items: filteredItems
+          }
+        }
+
+        return [];
+      });
+    }
   },
   methods: {
     ...mapActions('menu', ['loadMenu']),
-  }
+  },
 };
 </script>
 
